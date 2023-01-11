@@ -1,6 +1,9 @@
 grammar hsr;
 
 //tokens
+WHITESPACE: [ \t\r\n] -> skip;
+PASS: 'nic';
+
 PLUS: '+';
 MINUS: '-';
 INCREMENT: '++';
@@ -20,19 +23,15 @@ R_BRACKET: ')';
 L_BUCKLE: '{';
 R_BUCKLE: '}';
 
-IF_SYM: 'if';
-FOR_SYM: 'for';
-WHILE_SYM: 'while';
-PRINT_SYM: 'print';
+IF_SYM: 'czy' | 'jezeli';
+FOR_SYM: 'dla';
+WHILE_SYM: 'dopoki';
+PRINT_SYM: 'pokaz';
 
-//utility tokens
-LETTER: [a-zA-Z];
-NUMBER: [1-9][0-9]*;
-
-ID_NAME: LETTER (NUMBER | LETTER | '_')*;
-ID_NUMBER: 'liczba';
-ID_CHAR: 'litera';
-ID_STRING: 'wyraz';
+ID_NAME: [a-zA-Z] ([a-zA-Z0-9] | '_')*;
+ID_NUMBER: 'liczba ';
+ID_CHAR: 'litera ';
+ID_STRING: 'slowo ' | 'wyraz ';
 //ID_ARRAY: 'lista';
 
 DOT_SYM: '.';
@@ -43,36 +42,46 @@ APOSTROPHE_SYM: '\'';
 L_ARROW_SYM: '<-';
 R_ARROW_SYM: '->';
 
-//unknown(Color.PURPLE_BACKGROUND.colorCode, ""),
-//blank(Color.RESET.colorCode, " "),
-//EOF(Color.RESET.colorCode, "");
+CHAR: '"'[a-zA-Z]'"';
+STRING: '"'[a-zA-Z0-9 \t\r\n]+'"';
+INT: {'-'}[1-9][0-9]*;
 
 program_sym: start_expr hussar_expr* end_expr EOF;
 
+start_expr: 'zacznij' then_sym;
+
 end_expr: DOT_SYM;
 
-start_expr: 'zacznij';
+hussar_expr: var_decl | loop_expr | math_expr | print | PASS;
 
-hussar_expr: var_decl | loop_expr | math_expr;
+var_decl: int_decl | char_decl | string_decl;
 
-var_decl: ID_NUMBER | ID_CHAR | ID_STRING ID_NAME;
+int_decl: ID_NUMBER ID_NAME (EQ math_expr)?;
+
+char_decl: ID_CHAR ID_NAME (EQ CHAR)?;
+
+string_decl: ID_STRING ID_NAME (EQ STRING)?;
 
 math_symbol: MULTIPLICATION | POWER | PLUS | MINUS | DIVIDE;
 
-math_expr: math_expr math_symbol math_expr | NUMBER;
+math_expr: L_BRACKET math_expr R_BRACKET | math_expr math_symbol math_expr | INT;
 
-loop_expr: IF_SYM if_condition then_sym hussar_expr end_expr|
-           FOR_SYM for_condition then_sym hussar_expr end_expr |
-           WHILE_SYM while_condition then_sym hussar_expr end_expr;
-
-if_condition: ' ';
-
-for_condition: NUMBER R_ARROW_SYM NUMBER;
-
-while_condition: ' ';
+loop_expr: IF_SYM condition then_sym hussar_expr end_expr|
+           FOR_SYM for_range then_sym hussar_expr end_expr |
+           WHILE_SYM condition then_sym hussar_expr end_expr;
 
 then_sym: COLON_SYM;
 
+compare_sym: EQ |
+             LESSER |
+             LESSEREQ |
+             GREATER |
+             GREATEREQ;
 
+condition: math_expr compare_sym math_expr;
+
+for_range: INT R_ARROW_SYM INT;
+
+print: PRINT_SYM L_BRACKET (STRING | math_expr | CHAR) R_BRACKET;
 
 
