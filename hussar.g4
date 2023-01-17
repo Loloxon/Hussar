@@ -1,4 +1,4 @@
-grammar hsr;
+grammar hussar;
 
 //tokens
 WHITESPACE: [ \t\r\n] -> skip;
@@ -30,7 +30,7 @@ PRINT_SYM: 'pokaz';
 
 ID_NAME: [a-zA-Z] ([a-zA-Z0-9] | '_')*;
 ID_NUMBER: 'liczba ';
-ID_CHAR: 'litera ';
+ID_CHAR: 'litera ' | 'znak ';
 ID_STRING: 'slowo ' | 'wyraz ';
 //ID_ARRAY: 'lista';
 
@@ -46,11 +46,14 @@ CHAR: '"'[a-zA-Z]'"';
 STRING: '"'[a-zA-Z0-9 \t\r\n]+'"';
 INT: {'-'}[1-9][0-9]*;
 
-program_sym: start_expr hussar_expr* end_expr EOF;
+program_sym: start_block hussar_expr* end_block EOF;
 
-start_expr: 'zacznij' then_sym;
+start_block: 'zacznij' then_sym |
+            IF_SYM condition then_sym |
+            FOR_SYM for_range then_sym |
+            WHILE_SYM condition then_sym;
 
-end_expr: DOT_SYM;
+end_block: DOT_SYM;
 
 hussar_expr: var_decl | loop_expr | math_expr | print | PASS;
 
@@ -66,9 +69,7 @@ math_symbol: MULTIPLICATION | POWER | PLUS | MINUS | DIVIDE;
 
 math_expr: L_BRACKET math_expr R_BRACKET | math_expr math_symbol math_expr | INT;
 
-loop_expr: IF_SYM condition then_sym hussar_expr end_expr|
-           FOR_SYM for_range then_sym hussar_expr end_expr |
-           WHILE_SYM condition then_sym hussar_expr end_expr;
+loop_expr: start_block hussar_expr* end_block;
 
 then_sym: COLON_SYM;
 
@@ -82,6 +83,6 @@ condition: math_expr compare_sym math_expr;
 
 for_range: INT R_ARROW_SYM INT;
 
-print: PRINT_SYM L_BRACKET (STRING | math_expr | CHAR) R_BRACKET;
+print: PRINT_SYM L_BRACKET (STRING | math_expr | CHAR | ID_NAME) R_BRACKET;
 
 
