@@ -13,13 +13,18 @@ import java.io.PrintStream;
 import static org.antlr.v4.runtime.CharStreams.fromFileName;
 
 public class Launch {
-    public static void main(String [] args){
-        try{
-            int idx = 1;
+    public static void main(String[] args) {
+        int[] indexes = {1};
 
+        for (int idx : indexes) {
             String input = "input_" + idx + ".txt";
+            convert(input);
+        }
+    }
 
-            CharStream cs = fromFileName(input);
+    private static void convert(String inputFile) {
+        try {
+            CharStream cs = fromFileName(inputFile);
             hussarLexer lexer = new hussarLexer(cs);
             CommonTokenStream token = new CommonTokenStream(lexer);
             hussarParser parser = new hussarParser(token);
@@ -37,8 +42,7 @@ public class Launch {
 
             System.setOut(sys);
             Output.main();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
