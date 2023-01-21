@@ -113,13 +113,181 @@ public class hussarBaseListener implements hussarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMath_symbol(hussarParser.Math_symbolContext ctx) { }
+	@Override public void enterVar_redecl(hussarParser.Var_redeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMath_symbol(hussarParser.Math_symbolContext ctx) { }
+	@Override public void exitVar_redecl(hussarParser.Var_redeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInt_redecl(hussarParser.Int_redeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInt_redecl(hussarParser.Int_redeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterChar_redecl(hussarParser.Char_redeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitChar_redecl(hussarParser.Char_redeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterString_redecl(hussarParser.String_redeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitString_redecl(hussarParser.String_redeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMath_symbol_prio0(hussarParser.Math_symbol_prio0Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMath_symbol_prio0(hussarParser.Math_symbol_prio0Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMath_symbol_prio1(hussarParser.Math_symbol_prio1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMath_symbol_prio1(hussarParser.Math_symbol_prio1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMath_symbol_prio2(hussarParser.Math_symbol_prio2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMath_symbol_prio2(hussarParser.Math_symbol_prio2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStart_bracket(hussarParser.Start_bracketContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStart_bracket(hussarParser.Start_bracketContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEnd_bracket(hussarParser.End_bracketContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEnd_bracket(hussarParser.End_bracketContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStart_bracket_fake_power(hussarParser.Start_bracket_fake_powerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStart_bracket_fake_power(hussarParser.Start_bracket_fake_powerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEnd_bracket_fake(hussarParser.End_bracket_fakeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEnd_bracket_fake(hussarParser.End_bracket_fakeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEnd_semicolon(hussarParser.End_semicolonContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEnd_semicolon(hussarParser.End_semicolonContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBase(hussarParser.BaseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBase(hussarParser.BaseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactor(hussarParser.FactorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactor(hussarParser.FactorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComponent(hussarParser.ComponentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComponent(hussarParser.ComponentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -132,6 +300,18 @@ public class hussarBaseListener implements hussarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMath_expr(hussarParser.Math_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSupreme_math_expr(hussarParser.Supreme_math_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSupreme_math_expr(hussarParser.Supreme_math_exprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -156,6 +336,18 @@ public class hussarBaseListener implements hussarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitThen_sym(hussarParser.Then_symContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIs_equal(hussarParser.Is_equalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIs_equal(hussarParser.Is_equalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

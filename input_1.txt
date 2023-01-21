@@ -1,6 +1,20 @@
 zacznij:
-liczba x = (8+12)/5-2
-slowo witaj = "hello world"
-dla 1->5: pokaz(witaj).
-czy 3>5: pokaz(witaj).
-pokaz(x).
+    liczba x = 3
+    dla 3->100:
+        liczba dzielnik = 1
+        liczba dzielniki = 0
+        dopoki dzielnik<=x:
+           czy x modulo dzielnik = 0: zmien dzielniki na dzielniki + 1.
+        zmien dzielnik na dzielnik + 1.
+        czy dzielniki=2:
+            pokaz(x)
+            pokaz(" to liczba pierwsza")
+            pokaz(enter).
+        czy dzielniki>2:
+            pokaz(x)
+            pokaz(" ma ")
+            pokaz(dzielniki)
+            pokaz(" dzielnikow")
+            pokaz(enter).
+        zmien x na x+1.
+    .

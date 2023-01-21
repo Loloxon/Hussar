@@ -3,91 +3,32 @@ import antlr.hussarParser;
 
 public class MyVisitor extends hussarBaseVisitor<Object> {
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
     @Override
     public Object visitProgram_sym(hussarParser.Program_symContext ctx) {
         System.out.print("public static void main(");
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
     @Override
     public Object visitStart_block(hussarParser.Start_blockContext ctx) {
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
     @Override
     public Object visitEnd_block(hussarParser.End_blockContext ctx) {
         System.out.println("}");
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
     @Override
     public Object visitHussar_expr(hussarParser.Hussar_exprContext ctx) {
-        if (ctx.math_expr() != null)
-            System.out.println(ctx.math_expr());
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
+
     @Override
     public Object visitVar_decl(hussarParser.Var_declContext ctx) {
         return visitChildren(ctx);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
-    private void print_math_expr(hussarParser.Math_exprContext expr) {
-        if (expr.L_BRACKET() != null)
-            System.out.print(expr.L_BRACKET());
-        if (expr.math_expr() != null && expr.math_expr().size() > 0) {
-            print_math_expr(expr.math_expr().get(0));
-
-        }
-        if (expr.math_symbol() != null)
-            System.out.print(expr.math_symbol().PLUS() != null ? expr.math_symbol().PLUS() :
-                    expr.math_symbol().MINUS() != null ? expr.math_symbol().MINUS() :
-                            expr.math_symbol().DIVIDE() != null ? expr.math_symbol().DIVIDE() :
-                                    expr.math_symbol().MULTIPLICATION() != null ? expr.math_symbol().MULTIPLICATION() :
-                                            "**");
-        if (expr.math_expr() != null && expr.math_expr().size() > 1) {
-            print_math_expr(expr.math_expr().get(1));
-        }
-        if (expr.R_BRACKET() != null)
-            System.out.print(expr.R_BRACKET());
-        if (expr.INT() != null)
-            System.out.print(expr.INT());
     }
 
     @Override
@@ -95,67 +36,87 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
         System.out.print("int " + ctx.ID_NAME());
         if (ctx.EQ() != null) {
             System.out.print(ctx.EQ());
-            print_math_expr(ctx.math_expr());
         }
-        System.out.println(";");
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
     @Override
     public Object visitChar_decl(hussarParser.Char_declContext ctx) {
         System.out.println("String " + ctx.ID_NAME() + "=" + ctx.CHAR() + ";");
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
     @Override
     public Object visitString_decl(hussarParser.String_declContext ctx) {
         System.out.println("String " + ctx.ID_NAME() + "=" + ctx.STRING() + ";");
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
-    @Override
-    public Object visitMath_symbol(hussarParser.Math_symbolContext ctx) {
-        return visitChildren(ctx);
-    }
+    @Override public Object visitVar_redecl(hussarParser.Var_redeclContext ctx) {
+        System.out.print(ctx.ID_NAME() + "=");
+        return visitChildren(ctx); }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
-    @Override
-    public Object visitMath_expr(hussarParser.Math_exprContext ctx) {
-//        if(ctx.INT()!=null){
-//            System.out.print(ctx.INT());
-//        }
-        return visitChildren(ctx);
-    }
+    @Override public Object visitInt_redecl(hussarParser.Int_redeclContext ctx) { return visitChildren(ctx); }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
+    @Override public Object visitChar_redecl(hussarParser.Char_redeclContext ctx) {
+        System.out.print(ctx.CHAR());
+        return visitChildren(ctx); }
+
+    @Override public Object visitString_redecl(hussarParser.String_redeclContext ctx) {
+        System.out.print(ctx.STRING());
+        return visitChildren(ctx); }
+
+    @Override public Object visitMath_symbol_prio0(hussarParser.Math_symbol_prio0Context ctx) {
+        System.out.print(ctx.PLUS()!=null ? ctx.PLUS() : ctx.MINUS()!=null ? ctx.MINUS() : "%");
+        return visitChildren(ctx); }
+
+    @Override public Object visitMath_symbol_prio1(hussarParser.Math_symbol_prio1Context ctx) {
+        System.out.print(ctx.DIVIDE()!=null ? ctx.DIVIDE() : ctx.MULTIPLICATION());
+        return visitChildren(ctx); }
+
+    @Override public Object visitMath_symbol_prio2(hussarParser.Math_symbol_prio2Context ctx) {
+        System.out.print(",");
+        return visitChildren(ctx); }
+
+    @Override public Object visitStart_bracket(hussarParser.Start_bracketContext ctx) {
+        System.out.print(ctx.L_BRACKET());
+        return visitChildren(ctx); }
+
+    @Override public Object visitEnd_bracket(hussarParser.End_bracketContext ctx) {
+        System.out.print(ctx.R_BRACKET());
+        return visitChildren(ctx); }
+
+    @Override public Object visitStart_bracket_fake_power(hussarParser.Start_bracket_fake_powerContext ctx) {
+        System.out.print("(int) Math.pow(");
+        return visitChildren(ctx); }
+
+    @Override public Object visitEnd_bracket_fake(hussarParser.End_bracket_fakeContext ctx) {
+        System.out.print(")");
+        return visitChildren(ctx); }
+
+    @Override public Object visitEnd_semicolon(hussarParser.End_semicolonContext ctx) {
+        System.out.println(";");
+        return visitChildren(ctx); }
+
+    @Override public Object visitBase(hussarParser.BaseContext ctx) {
+        if(ctx.INT()!=null) {
+            System.out.print(ctx.INT());
+        }
+        else if(ctx.ID_NAME()!=null) {
+            System.out.print(ctx.ID_NAME());
+        }
+
+        return visitChildren(ctx); }
+
+    @Override public Object visitFactor(hussarParser.FactorContext ctx) { return visitChildren(ctx); }
+
+    @Override public Object visitComponent(hussarParser.ComponentContext ctx) { return visitChildren(ctx); }
+
+    @Override public Object visitMath_expr(hussarParser.Math_exprContext ctx) { return visitChildren(ctx); }
+
+    @Override public Object visitSupreme_math_expr(hussarParser.Supreme_math_exprContext ctx) { return visitChildren(ctx); }
+
+
     @Override
     public Object visitLoop_expr(hussarParser.Loop_exprContext ctx) {
         if (ctx.start_block().IF_SYM() != null) {
@@ -168,28 +129,21 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
     @Override
     public Object visitThen_sym(hussarParser.Then_symContext ctx) {
         System.out.println("){");
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
+    @Override public Object visitIs_equal(hussarParser.Is_equalContext ctx) {
+        System.out.print("==");
+        return visitChildren(ctx); }
+
+
     @Override
     public Object visitCompare_sym(hussarParser.Compare_symContext ctx) {
-        if (ctx.EQ() != null) {
-            System.out.print(ctx.EQ());
+        if (ctx.NOTEQ() != null) {
+            System.out.print("!=");
         } else if (ctx.LESSER() != null) {
             System.out.print(ctx.LESSER());
         } else if (ctx.LESSEREQ() != null) {
@@ -202,12 +156,6 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
         return visitChildren(ctx);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Objecthe default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
     @Override
     public Object visitCondition(hussarParser.ConditionContext ctx) {
         return visitChildren(ctx);
@@ -215,17 +163,20 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
 
     @Override
     public Object visitFor_range(hussarParser.For_rangeContext ctx) {
-        System.out.print("int i=" + ctx.INT().get(0) + "; i <= " + ctx.INT().get(1) + "; i++");
+        System.out.print("int tempUntypicalVariable=" + ctx.INT().get(0) +
+                "; tempUntypicalVariable <= " + ctx.INT().get(1) + "; tempUntypicalVariable++");
         return visitChildren(ctx);
     }
 
     @Override
     public Object visitPrint(hussarParser.PrintContext ctx) {
-        System.out.println("System.out.println(" +
-                (ctx.STRING() != null ? ctx.STRING() :
-                        ctx.math_expr() != null ? ctx.math_expr() :
-                                ctx.CHAR() != null ? ctx.CHAR() :
-                                        ctx.ID_NAME()) + ");");
+        if(ctx.NEWLINE()!=null){
+            System.out.print("System.out.println(");
+        }
+        else {
+            System.out.print("System.out.print(" + (ctx.STRING() != null ? ctx.STRING() :
+                    ctx.CHAR() != null ? ctx.CHAR() : ""));
+        }
         return visitChildren(ctx);
     }
 }
