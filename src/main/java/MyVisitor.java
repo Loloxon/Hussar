@@ -144,9 +144,9 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
      */
     @Override
     public Object visitMath_expr(hussarParser.Math_exprContext ctx) {
-        if(ctx.INT()!=null){
-            System.out.print(ctx.INT());
-        }
+//        if(ctx.INT()!=null){
+//            System.out.print(ctx.INT());
+//        }
         return visitChildren(ctx);
     }
 
@@ -210,7 +210,6 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
      */
     @Override
     public Object visitCondition(hussarParser.ConditionContext ctx) {
-        System.out.print(ctx.math_expr());
         return visitChildren(ctx);
     }
 
