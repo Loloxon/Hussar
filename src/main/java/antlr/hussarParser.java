@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class hussarParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }

@@ -2,4 +2,5 @@ zacznij:
 liczba x = (8+12)/5-2
 slowo witaj = "hello world"
 dla 1->5: pokaz(witaj).
+czy 3>5: pokaz(witaj).
 pokaz(x).
