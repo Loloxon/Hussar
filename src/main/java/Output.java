@@ -1,5 +1,4 @@
-public class Output{
-public static void main(){
+public class Output{public static void main(String[] args){
 int x=3;
 for(int tempUntypicalVariable=3; tempUntypicalVariable <= 100; tempUntypicalVariable++){
 int dzielnik=1;
@@ -12,9 +11,6 @@ dzielnik=dzielnik+1;
 }
 if(dzielniki==2){
 System.out.print(x+ " " +"to liczba pierwsza"+ " " +"\n");
-}
-if(dzielniki>2){
-System.out.print(x+ " " +"ma"+ " " +dzielniki+ " " +"dzielnikow"+ " " +"\n");
 }
 x=x+1;
 }

@@ -1,11 +1,33 @@
 import antlr.hussarBaseVisitor;
 import antlr.hussarParser;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class MyVisitor extends hussarBaseVisitor<Object> {
+    private final BufferedWriter writer;
+
+
+    public MyVisitor(String fileName) throws IOException {
+        writer = new BufferedWriter(new FileWriter(fileName));
+        writer.append("public class Output{");
+    }
+
+    public void closeFile() throws IOException {
+        writer.append("}");
+        writer.close();
+//        writer.flush();
+    }
 
     @Override
     public Object visitProgram_sym(hussarParser.Program_symContext ctx) {
-        System.out.print("public static void main(");
+        try {
+            writer.append("public static void main(String[] args");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+//        System.out.print("public static void main(");
         return visitChildren(ctx);
     }
 
@@ -16,7 +38,12 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
 
     @Override
     public Object visitEnd_block(hussarParser.End_blockContext ctx) {
-        System.out.println("}");
+        try {
+            writer.append("}");
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         return visitChildren(ctx);
     }
 
@@ -33,125 +60,245 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
 
     @Override
     public Object visitInt_decl(hussarParser.Int_declContext ctx) {
-        System.out.print("int " + ctx.ID_NAME());
-        if (ctx.EQ() != null) {
-            System.out.print(ctx.EQ());
+        try {
+            writer.append("int " + ctx.ID_NAME());
+            if (ctx.EQ() != null) {
+                writer.append(ctx.EQ()+"");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         return visitChildren(ctx);
     }
 
     @Override
     public Object visitChar_decl(hussarParser.Char_declContext ctx) {
-        System.out.println("String " + ctx.ID_NAME() + "=" + ctx.CHAR() + ";");
+        try {
+            writer.append("String " + ctx.ID_NAME() + "=" + ctx.CHAR() + ";");
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         return visitChildren(ctx);
     }
 
     @Override
     public Object visitString_decl(hussarParser.String_declContext ctx) {
-        System.out.println("String " + ctx.ID_NAME() + "=" + ctx.STRING() + ";");
+        try {
+            writer.append("String " + ctx.ID_NAME() + "=" + ctx.STRING() + ";");
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         return visitChildren(ctx);
     }
 
-    @Override public Object visitVar_redecl(hussarParser.Var_redeclContext ctx) {
-        System.out.print(ctx.ID_NAME() + "=");
-        return visitChildren(ctx); }
-
-    @Override public Object visitInt_redecl(hussarParser.Int_redeclContext ctx) { return visitChildren(ctx); }
-
-    @Override public Object visitChar_redecl(hussarParser.Char_redeclContext ctx) {
-        System.out.print(ctx.CHAR());
-        return visitChildren(ctx); }
-
-    @Override public Object visitString_redecl(hussarParser.String_redeclContext ctx) {
-        System.out.print(ctx.STRING());
-        return visitChildren(ctx); }
-
-    @Override public Object visitMath_symbol_prio0(hussarParser.Math_symbol_prio0Context ctx) {
-        System.out.print(ctx.PLUS()!=null ? ctx.PLUS() : ctx.MINUS()!=null ? ctx.MINUS() : "%");
-        return visitChildren(ctx); }
-
-    @Override public Object visitMath_symbol_prio1(hussarParser.Math_symbol_prio1Context ctx) {
-        System.out.print(ctx.DIVIDE()!=null ? ctx.DIVIDE() : ctx.MULTIPLICATION());
-        return visitChildren(ctx); }
-
-    @Override public Object visitMath_symbol_prio2(hussarParser.Math_symbol_prio2Context ctx) {
-        System.out.print(",");
-        return visitChildren(ctx); }
-
-    @Override public Object visitStart_bracket(hussarParser.Start_bracketContext ctx) {
-        System.out.print(ctx.L_BRACKET());
-        return visitChildren(ctx); }
-
-    @Override public Object visitEnd_bracket(hussarParser.End_bracketContext ctx) {
-        System.out.print(ctx.R_BRACKET());
-        return visitChildren(ctx); }
-
-    @Override public Object visitStart_bracket_fake_power(hussarParser.Start_bracket_fake_powerContext ctx) {
-        System.out.print("(int) Math.pow(");
-        return visitChildren(ctx); }
-
-    @Override public Object visitEnd_bracket_fake(hussarParser.End_bracket_fakeContext ctx) {
-        System.out.print(")");
-        return visitChildren(ctx); }
-
-    @Override public Object visitEnd_semicolon(hussarParser.End_semicolonContext ctx) {
-        System.out.println(";");
-        return visitChildren(ctx); }
-
-    @Override public Object visitBase(hussarParser.BaseContext ctx) {
-        if(ctx.INT()!=null) {
-            System.out.print(ctx.INT());
+    @Override
+    public Object visitVar_redecl(hussarParser.Var_redeclContext ctx) {
+        try {
+            writer.append(ctx.ID_NAME() + "=");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-        else if(ctx.ID_NAME()!=null) {
-            System.out.print(ctx.ID_NAME());
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitInt_redecl(hussarParser.Int_redeclContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitChar_redecl(hussarParser.Char_redeclContext ctx) {
+        try {
+            writer.append(ctx.CHAR()+"");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
+        return visitChildren(ctx);
+    }
 
-        return visitChildren(ctx); }
+    @Override
+    public Object visitString_redecl(hussarParser.String_redeclContext ctx) {
+        try {
+            writer.append(ctx.STRING()+"");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
 
-    @Override public Object visitFactor(hussarParser.FactorContext ctx) { return visitChildren(ctx); }
+    @Override
+    public Object visitMath_symbol_prio0(hussarParser.Math_symbol_prio0Context ctx) {
+        try {
+            writer.append((ctx.PLUS() != null ? ctx.PLUS() : ctx.MINUS() != null ? ctx.MINUS() : "%")+"");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
 
-    @Override public Object visitComponent(hussarParser.ComponentContext ctx) { return visitChildren(ctx); }
+    @Override
+    public Object visitMath_symbol_prio1(hussarParser.Math_symbol_prio1Context ctx) {
+        try {
+            writer.append((ctx.DIVIDE() != null ? ctx.DIVIDE() : ctx.MULTIPLICATION())+"");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
 
-    @Override public Object visitMath_expr(hussarParser.Math_exprContext ctx) { return visitChildren(ctx); }
+    @Override
+    public Object visitMath_symbol_prio2(hussarParser.Math_symbol_prio2Context ctx) {
+        try {
+            writer.append(",");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
 
-    @Override public Object visitSupreme_math_expr(hussarParser.Supreme_math_exprContext ctx) { return visitChildren(ctx); }
+    @Override
+    public Object visitStart_bracket(hussarParser.Start_bracketContext ctx) {
+        try {
+            writer.append(ctx.L_BRACKET()+"");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitEnd_bracket(hussarParser.End_bracketContext ctx) {
+        try {
+            writer.append(ctx.R_BRACKET()+"");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitStart_bracket_fake_power(hussarParser.Start_bracket_fake_powerContext ctx) {
+        try {
+            writer.append("(int) Math.pow(");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitEnd_bracket_fake(hussarParser.End_bracket_fakeContext ctx) {
+        try {
+            writer.append(")");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitEnd_semicolon(hussarParser.End_semicolonContext ctx) {
+        try {
+            writer.append(";");
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitBase(hussarParser.BaseContext ctx) {
+        try {
+            if (ctx.INT() != null) {
+                writer.append(ctx.INT()+"");
+            } else if (ctx.ID_NAME() != null) {
+                writer.append(ctx.ID_NAME()+"");
+            }
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitFactor(hussarParser.FactorContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitComponent(hussarParser.ComponentContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitMath_expr(hussarParser.Math_exprContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitSupreme_math_expr(hussarParser.Supreme_math_exprContext ctx) {
+        return visitChildren(ctx);
+    }
 
 
     @Override
     public Object visitLoop_expr(hussarParser.Loop_exprContext ctx) {
-        if (ctx.start_block().IF_SYM() != null) {
-            System.out.print("if(");
-        } else if (ctx.start_block().FOR_SYM() != null) {
-            System.out.print("for(");
-        } else if (ctx.start_block().WHILE_SYM() != null) {
-            System.out.print("while(");
+        try {
+            if (ctx.start_block().IF_SYM() != null) {
+                writer.append("if(");
+            } else if (ctx.start_block().FOR_SYM() != null) {
+                writer.append("for(");
+            } else if (ctx.start_block().WHILE_SYM() != null) {
+                writer.append("while(");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         return visitChildren(ctx);
     }
 
     @Override
     public Object visitThen_sym(hussarParser.Then_symContext ctx) {
-        System.out.println("){");
+        try {
+            writer.append("){");
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         return visitChildren(ctx);
     }
 
-    @Override public Object visitIs_equal(hussarParser.Is_equalContext ctx) {
-        System.out.print("==");
-        return visitChildren(ctx); }
+    @Override
+    public Object visitIs_equal(hussarParser.Is_equalContext ctx) {
+        try {
+            writer.append("==");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
 
 
     @Override
     public Object visitCompare_sym(hussarParser.Compare_symContext ctx) {
-        if (ctx.NOTEQ() != null) {
-            System.out.print("!=");
-        } else if (ctx.LESSER() != null) {
-            System.out.print(ctx.LESSER());
-        } else if (ctx.LESSEREQ() != null) {
-            System.out.print(ctx.LESSEREQ());
-        } else if (ctx.GREATER() != null) {
-            System.out.print(ctx.GREATER());
-        } else if (ctx.GREATEREQ() != null) {
-            System.out.print(ctx.GREATEREQ());
+        try {
+            if (ctx.NOTEQ() != null) {
+                writer.append("!=");
+            } else if (ctx.LESSER() != null) {
+                writer.append(ctx.LESSER()+"");
+            } else if (ctx.LESSEREQ() != null) {
+                writer.append(ctx.LESSEREQ()+"");
+            } else if (ctx.GREATER() != null) {
+                writer.append(ctx.GREATER()+"");
+            } else if (ctx.GREATEREQ() != null) {
+                writer.append(ctx.GREATEREQ()+"");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         return visitChildren(ctx);
     }
@@ -163,31 +310,63 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
 
     @Override
     public Object visitFor_range(hussarParser.For_rangeContext ctx) {
-        System.out.print("int tempUntypicalVariable=" + ctx.INT().get(0) +
-                "; tempUntypicalVariable <= " + ctx.INT().get(1) + "; tempUntypicalVariable++");
+        try {
+            writer.append("int tempUntypicalVariable=" + ctx.INT().get(0) +
+                    "; tempUntypicalVariable <= " + ctx.INT().get(1) + "; tempUntypicalVariable++");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         return visitChildren(ctx);
     }
 
-    @Override public Object visitPrint_separator(hussarParser.Print_separatorContext ctx) {
-        System.out.print("+ \" \" +");
-        return visitChildren(ctx); }
+    @Override
+    public Object visitPrint_separator(hussarParser.Print_separatorContext ctx) {
+        try {
+            writer.append("+ \" \" +");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
 
 
-    @Override public Object visitPrint_string(hussarParser.Print_stringContext ctx) {
-        System.out.print(ctx.STRING());
-        return visitChildren(ctx); }
+    @Override
+    public Object visitPrint_string(hussarParser.Print_stringContext ctx) {
+        try {
+            writer.append(ctx.STRING()+"");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
 
-    @Override public Object visitPrint_char(hussarParser.Print_charContext ctx) {
-        System.out.print(ctx.CHAR());
-        return visitChildren(ctx); }
+    @Override
+    public Object visitPrint_char(hussarParser.Print_charContext ctx) {
+        try {
+            writer.append(ctx.CHAR()+"");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
 
-    @Override public Object visitPrint_newline(hussarParser.Print_newlineContext ctx) {
-        System.out.print("\"\\n\"");
-        return visitChildren(ctx); }
+    @Override
+    public Object visitPrint_newline(hussarParser.Print_newlineContext ctx) {
+        try {
+            writer.append("\"\\n\"");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return visitChildren(ctx);
+    }
 
     @Override
     public Object visitPrint(hussarParser.PrintContext ctx) {
-        System.out.print("System.out.print(");
+        try {
+            writer.append("System.out.print(");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         return visitChildren(ctx);
     }
 }
