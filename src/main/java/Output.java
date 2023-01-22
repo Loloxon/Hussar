@@ -12,6 +12,9 @@ dzielnik=dzielnik+1;
 if(dzielniki==2){
 System.out.print(x+ " " +"to liczba pierwsza"+ " " +"\n");
 }
+if(dzielniki>2){
+System.out.print(x+ " " +"ma"+ " " +dzielniki+ " " +"dzielnikow"+ " " +"\n");
+}
 x=x+1;
 }
 }

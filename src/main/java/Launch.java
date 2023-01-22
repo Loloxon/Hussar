@@ -13,16 +13,12 @@ import static org.antlr.v4.runtime.CharStreams.fromFileName;
 
 public class Launch {
     public static void main(String[] args) throws Exception {
-        int[] indexes = {1};
+        String input = "input.txt";
+        String output = "src/main/java/Output.java";
 
-        for (int idx : indexes) {
-            String input = "input_" + idx + ".txt";
-            String output = "src/main/java/Output.java";
+        convert(input, output);
 
-            convert(input, output);
-
-            runProcess("java -cp src src/main/java/Output.java");
-        }
+        runProcess("java -cp src src/main/java/Output.java");
     }
 
     private static void printLines(InputStream ins) throws Exception {
