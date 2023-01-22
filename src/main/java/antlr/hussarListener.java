@@ -318,6 +318,46 @@ public interface hussarListener extends ParseTreeListener {
 	 */
 	void exitFor_range(hussarParser.For_rangeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link hussarParser#print_separator}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrint_separator(hussarParser.Print_separatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link hussarParser#print_separator}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrint_separator(hussarParser.Print_separatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link hussarParser#print_string}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrint_string(hussarParser.Print_stringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link hussarParser#print_string}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrint_string(hussarParser.Print_stringContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link hussarParser#print_char}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrint_char(hussarParser.Print_charContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link hussarParser#print_char}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrint_char(hussarParser.Print_charContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link hussarParser#print_newline}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrint_newline(hussarParser.Print_newlineContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link hussarParser#print_newline}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrint_newline(hussarParser.Print_newlineContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link hussarParser#print}.
 	 * @param ctx the parse tree
 	 */

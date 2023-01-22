@@ -168,15 +168,26 @@ public class MyVisitor extends hussarBaseVisitor<Object> {
         return visitChildren(ctx);
     }
 
+    @Override public Object visitPrint_separator(hussarParser.Print_separatorContext ctx) {
+        System.out.print("+ \" \" +");
+        return visitChildren(ctx); }
+
+
+    @Override public Object visitPrint_string(hussarParser.Print_stringContext ctx) {
+        System.out.print(ctx.STRING());
+        return visitChildren(ctx); }
+
+    @Override public Object visitPrint_char(hussarParser.Print_charContext ctx) {
+        System.out.print(ctx.CHAR());
+        return visitChildren(ctx); }
+
+    @Override public Object visitPrint_newline(hussarParser.Print_newlineContext ctx) {
+        System.out.print("\"\\n\"");
+        return visitChildren(ctx); }
+
     @Override
     public Object visitPrint(hussarParser.PrintContext ctx) {
-        if(ctx.NEWLINE()!=null){
-            System.out.print("System.out.println(");
-        }
-        else {
-            System.out.print("System.out.print(" + (ctx.STRING() != null ? ctx.STRING() :
-                    ctx.CHAR() != null ? ctx.CHAR() : ""));
-        }
+        System.out.print("System.out.print(");
         return visitChildren(ctx);
     }
 }

@@ -7,14 +7,8 @@ zacznij:
            czy x modulo dzielnik = 0: zmien dzielniki na dzielniki + 1.
         zmien dzielnik na dzielnik + 1.
         czy dzielniki=2:
-            pokaz(x)
-            pokaz(" to liczba pierwsza")
-            pokaz(enter).
+            pokaz(x, "to liczba pierwsza", enter).
         czy dzielniki>2:
-            pokaz(x)
-            pokaz(" ma ")
-            pokaz(dzielniki)
-            pokaz(" dzielnikow")
-            pokaz(enter).
+            pokaz(x, "ma", dzielniki, "dzielnikow", enter).
         zmien x na x+1.
     .

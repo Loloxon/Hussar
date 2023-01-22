@@ -197,6 +197,30 @@ public interface hussarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFor_range(hussarParser.For_rangeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link hussarParser#print_separator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrint_separator(hussarParser.Print_separatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link hussarParser#print_string}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrint_string(hussarParser.Print_stringContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link hussarParser#print_char}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrint_char(hussarParser.Print_charContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link hussarParser#print_newline}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrint_newline(hussarParser.Print_newlineContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link hussarParser#print}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

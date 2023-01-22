@@ -11,16 +11,10 @@ dzielniki=dzielniki+1;
 dzielnik=dzielnik+1;
 }
 if(dzielniki==2){
-System.out.print(x);
-System.out.print(" to liczba pierwsza");
-System.out.println();
+System.out.print(x+ " " +"to liczba pierwsza"+ " " +"\n");
 }
 if(dzielniki>2){
-System.out.print(x);
-System.out.print(" ma ");
-System.out.print(dzielniki);
-System.out.print(" dzielnikow");
-System.out.println();
+System.out.print(x+ " " +"ma"+ " " +dzielniki+ " " +"dzielnikow"+ " " +"\n");
 }
 x=x+1;
 }

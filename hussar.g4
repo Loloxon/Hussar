@@ -111,6 +111,15 @@ condition: math_expr compare_sym math_expr;
 
 for_range: INT R_ARROW_SYM INT;
 
-print: PRINT_SYM L_BRACKET (STRING | math_expr | CHAR | NEWLINE) R_BRACKET end_bracket_fake end_semicolon;
+print_separator: COMA_SYM;
+
+print_string: STRING;
+
+print_char: CHAR;
+
+print_newline: NEWLINE;
+
+print: PRINT_SYM L_BRACKET (print_string | math_expr | print_char | print_newline)
+(print_separator (print_string | math_expr | print_char | print_newline))* R_BRACKET end_bracket_fake end_semicolon;
 
 
